@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular - Mantenimiento de Plantas Mineras</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <header>
+        <div class="header-content">
+            <h1>Ingeniería en Mantenimiento de Plantas Mineras</h1>
+            <p>Calculadora de Avance Curricular</p>
+        </div>
+        <div class="progress-container">
+            <span>Avance: <strong id="progress-text">0%</strong></span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <button class="btn-reset" onclick="resetProgress()">Reiniciar Malla</button>
+        </div>
+    </header>
+
+    <main class="grid-container" id="malla-grid">
+        <!-- Los semestres y ramos se generarán aquí con JavaScript -->
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3>⚠️ Requisitos Pendientes</h3>
+            <p id="modal-message">Debes aprobar ramos anteriores.</p>
+            <button class="btn-ok" onclick="closeModal()">Entendido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
