@@ -1,1 +1,274 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --card-hover: #2a2a2a;
+    --primary-pink: #ff007f;
+    --primary-pink-dim: #b30059;
+    --text-main: #ffffff;
+    --text-muted: #b0b0b0;
+    --approved-bg: #ff007f; /* Rosa fuerte para aprobados */
+    --approved-text: #ffffff;
+    --blocked-opacity: 0.5;
+    --border-radius: 8px;
+    --transition: 0.3s ease;
+}
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding-bottom: 50px;
+}
+
+/* --- Header --- */
+header {
+    background: linear-gradient(135deg, #1f1f1f 0%, #000000 100%);
+    padding: 20px 40px;
+    border-bottom: 3px solid var(--primary-pink);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.2);
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: var(--primary-pink);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- Barra de Progreso --- */
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--primary-pink);
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px var(--primary-pink);
+}
+
+.btn-reset {
+    background: transparent;
+    border: 1px solid var(--primary-pink);
+    color: var(--primary-pink);
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.btn-reset:hover {
+    background: var(--primary-pink);
+    color: white;
+}
+
+/* --- Malla Grid --- */
+.grid-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 40px;
+    gap: 20px;
+    min-height: 80vh;
+}
+
+/* Scrollbar personalizada */
+.grid-container::-webkit-scrollbar {
+    height: 10px;
+}
+.grid-container::-webkit-scrollbar-track {
+    background: #121212;
+}
+.grid-container::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 5px;
+}
+.grid-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-pink);
+}
+
+/* --- Columnas (Semestres) --- */
+.semester-column {
+    min-width: 220px;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.semester-title {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    border-bottom: 2px solid var(--primary-pink);
+}
+
+/* --- Tarjetas de Ramo --- */
+.subject-card {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    position: relative;
+    border-left: 4px solid transparent;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.subject-card:hover {
+    transform: translateY(-3px);
+    background-color: var(--card-hover);
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.15);
+}
+
+.subject-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Estado: Aprobado */
+.subject-card.approved {
+    background-color: var(--approved-bg);
+    color: var(--approved-text);
+    border-left: 4px solid white;
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+.subject-card.approved::after {
+    content: '✓';
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Estado: Bloqueado (Faltan requisitos) */
+.subject-card.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
+
+.subject-card.locked:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Indicador de requisito (opcional) */
+.req-indicator {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    display: block;
+}
+
+.subject-card.approved .req-indicator {
+    color: rgba(255,255,255,0.7);
+}
+
+/* --- Modal --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 200; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.8); 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border: 1px solid var(--primary-pink);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.3);
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--primary-pink);
+}
+
+.btn-ok {
+    margin-top: 20px;
+    background-color: var(--primary-pink);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .grid-container {
+        flex-direction: column; /* Una columna hacia abajo en móviles */
+        overflow-x: hidden;
+        align-items: center;
+    }
+    
+    .semester-column {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
